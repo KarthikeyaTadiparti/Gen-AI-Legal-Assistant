@@ -1,42 +1,23 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import Layout from "./components/Layout";
+import Home from "./pages/Home";
+import Login from "./Pages/Login";
+import Signup from "./Pages/Signup";
+import Document from "./Pages/Document";
+import Chatbot from "./Pages/Chatbot";
 
 function App() {
     return (
-        <body>
-            <nav className="sticky py-4 flex justify-between items-center border-b-2">
-                <div className="flex w-4/5 mx-auto justify-between items-center">
-                    <Link to="/">
-                        <h1 className="font-bold text-2xl tracking-wide ">
-                            Legal Assistant
-                        </h1>
-                    </Link>
-
-                    <div className="flex gap-x-12 font-medium ">
-                        <Link to="/" className="hover:underline">
-                            Home
-                        </Link>
-                        <Link to="/document" className="hover:underline">
-                            Document Upload
-                        </Link>
-
-                        <Link to="/auth/login" className="hover:underline">
-                            Log In
-                        </Link>
-                        <Link to="/auth/signup" className="hover:underline">
-                            Sign Up
-                        </Link>
-
-                        <button
-                            // onClick={handleLogout}
-                            className="hover:underline"
-                        >
-                            Log Out
-                        </button>
-                    </div>
-                </div>
-            </nav>
-        </body>
+        <Routes>
+            <Route paht="/" element={<Layout />}>
+                <Route index element={<Home />}/>
+                <Route path="/upload-legal-doc" element={<Document/>}/>
+                <Route path="/chatbot" element={<Chatbot/>}/>
+                <Route path="/auth/login" element={<Login />}/>
+                <Route path="/auth/signup" element={<Signup />}/>
+            </Route>
+        </Routes>
     );
 }
 
