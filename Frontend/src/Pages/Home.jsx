@@ -6,7 +6,7 @@ function Home() {
             <div>
                 <h1 className="text-3xl font-semibold tracking-wider place-items-center leading-relaxed">
                     Legal clarity at your fingertips <br />
-                    —analyze, summarize, and protect.
+                    —analyze, summarize.
                 </h1>
                 <p className="text-md mt-2 leading-relaxed text-justify">
                     Legal documents can be confusing with complex terms and long
