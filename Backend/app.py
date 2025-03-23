@@ -293,7 +293,17 @@ async def answer_legal_question(request: ChatRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error in chatbot response: {str(e)}")
     
-    
+from fastapi.middleware.cors import CORSMiddleware
+
+# ---------------------------- CORS Middleware Setup ----------------------------
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins; restrict this in production
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all HTTP methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allows all headers
+)
+
     
 @app.on_event("shutdown")
 async def shutdown_event():
