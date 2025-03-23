@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios"; // ✅ Import axios
 
 export default function LegalAssistant() {
     const [docContent, setDocContent] = useState("");
@@ -11,15 +12,24 @@ export default function LegalAssistant() {
             alert("Please enter the purpose of the document...");
             return;
         }
-        const result = await axios.post("http://127.0.0.1:8000/generate-legal-doc",{
-            "template": docType,
-            "clauses": docContent
-        });
-        console.log(result);
-        console.log(result.legal_document);
-        const generatedText = result.legal_document;    
-        setPreviewContent(generatedText);
-        setDownloadVisible(true);
+
+        try {
+            const result = await axios.post("http://127.0.0.1:8000/generate-legal-doc", {
+                "template": docType,
+                "clauses": docContent
+            });
+
+            console.log(result);
+            
+            // ✅ Fix: Access `result.data.legal_document` instead of `result.legal_document`
+            const generatedText = result.data.legal_document;    
+
+            setPreviewContent(generatedText);
+            setDownloadVisible(true);
+        } catch (error) {
+            console.error("Error generating document:", error);
+            alert("Failed to generate the document. Please try again.");
+        }
     };
 
     const downloadDocument = () => {
@@ -63,7 +73,7 @@ export default function LegalAssistant() {
             <div className="flex flex-col items-center">
                 <h3 className="text-lg font-semibold">Document Preview</h3>
                 <div className="w-[595px] h-[842px] border bg-white shadow-lg p-6 overflow-auto mt-2" 
-                    dangerouslySetInnerHTML={{ __html: previewContent }}
+                    dangerouslySetInnerHTML={{ __html: previewContent }} 
                 />
                 {isDownloadVisible && (
                     <button 
