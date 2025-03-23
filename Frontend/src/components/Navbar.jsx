@@ -22,7 +22,9 @@ function Navbar() {
                     <Link to="/chatbot" className="hover:underline">
                         Chatbot
                     </Link>
-                    
+                    <Link to="/generate-legal-doc" className="hover:underline">
+                        Generate Document
+                    </Link>
                 </div>
             </div>
         </nav>
